@@ -1,7 +1,7 @@
 const Top = () => {
   return (
     <div>
-      <h1>Hello World!</h1>
+      <h1 style={{ textAlign: "center" }}>Hello Azure Static Web Apps!!</h1>
     </div>
   );
 };
