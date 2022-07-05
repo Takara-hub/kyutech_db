@@ -1,35 +1,84 @@
+import { stringify } from "querystring";
 import PrimaryButton from "../../components/PrimaryButton";
+import { ChangeEvent, FormEvent, useState } from "react";
 import "./Signup.css"
 
 const Signup = () => {
+  const initialValues = { username: "", mailadress: "", password: ""};
+  const [formValues, setFormValues] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState(initialValues);
+  const [isSubmit, setIsSubmit] = useState(false);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // console.log(e.target.value);
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value});
+    // console.log(formValues);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    //サインアップ情報を送信する
+    //バリデーションチェック
+    setFormErrors(validate(formValues));
+    setIsSubmit(true);
+  };
+
+  const validate = (values: { username: any; mailadress: any; password?: string; }) => {
+    const errors = { username: "", mailadress: "", password: ""};;
+    const regex = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+    if(!values.username) {
+      errors.username = "ユーザー名を入力してください";
+    }
+
+    if(!values.mailadress) {
+      errors.mailadress = "メールアドレスを入力してください";
+    } else if(!regex.test(values.mailadress)) {
+      errors.mailadress = "正しいメールアドレスを入力してください"
+    }
+
+    if(!values.password) {
+      errors.password = "パスワードを入力してください";
+    } else if(values.password.length < 4) {
+      errors.password = "4文字以上15文字以下のパスワードを入力してください";
+    } else if(values.password.length > 15) {
+      errors.password = "4文字以上15文字以下のパスワードを入力してください";
+    }
+
+    return errors;
+  };
+
   return (
-    <body>
-      <div className="signup-box">
-        <h1>Sign Up</h1>
-        <h4>It's free and only takes a minute</h4>
-        <form>
-          <label htmlFor="firstname_id">First Name</label>
-          <input type="text" name="firstname" id="firstname_id" placeholder=""></input>
-          <label htmlFor="lastname_id">Last Name</label>
-          <input type="text" name="lastname" id="lastname_id" placeholder=""></input>
-          <label htmlFor="email_id">Email</label>
-          <input type="email" name="email" id="email_id" placeholder=""></input>
-          <label htmlFor="password_id">PassWord</label>
-          <input type="password" name="password" id="password_id" placeholder=""></input>
-          <label htmlFor="confirmpassword_id">Confirm PassWord</label>
-          <input type="password" name="confirmpassword" id="confirmpassword_id" placeholder=""></input>
-          <button type = "submit" name="submitbutton">Submit</button>
+    <div className="formContainer">
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <h1>Sign Up</h1>
+          <hr/>
+          <div className="uiForm">
+            <div className="formField">
+              <label htmlFor="username_id">ユーザー名</label>
+              <input type="text" name="username" id="username_id" placeholder="ユーザー名" onChange={(e) => handleChange(e)}></input>
+            </div>
+            <p className="errorMsg">{formErrors.username}</p>
+            <div className="formField">
+              <label htmlFor="mailadress_id">メールアドレス</label>
+              <input type="text" name="mailadress" id="mailadress_id" placeholder="メールアドレス" onChange={(e) => handleChange(e)}></input>
+            </div>
+            <p className="errorMsg">{formErrors.mailadress}</p>
+            <div className="formField">
+              <label htmlFor="password_id">パスワード</label>
+              <input type="text" name="password" id="password_id" placeholder="パスワード" onChange={(e) => handleChange(e)}></input>
+            </div>
+            <p className="errorMsg">{formErrors.password}</p>
+            <button className="submitButton">送信</button>
+            {/* {Object.keys(formErrors).length === 0 && isSubmit && (
+              <div className="msgOk">サインアップに成功しました</div>
+            )} */}
+          </div>
         </form>
-        <p className="para1">
-          By clicking the Sign Up button, you agree to our <br></br>
-          <a href="#">Terms and Condition</a> and <a href="#">Policy Privacy</a>
-        </p>
-      </div>
-        <p className="para2">
-          Already have an account? <a href="#">Login here</a>
-        </p>
-    </body>
+    </div>
   );
 };
 
 export default Signup;
+

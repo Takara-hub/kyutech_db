@@ -1,68 +1,94 @@
-body{
-  background-color: #344a72;
-  font-family: 'Roboto', sans-serif;
+body {
+  /* background-color: #9eb9cf; */
+  background: rgb(105, 88, 177);
+  background: linear-gradient(
+    117deg,
+    rgba(105, 88, 177, 1) 5%,
+    rgba(87, 30, 97, 0.9556197478991597) 100%
+  );
+  overflow-y: hidden;
 }
 
-.signup-box{
-  width: 400px;
-  height: 640px;
-  margin: auto;
-  background-color: white;
-  border-radius: 3px;
-}
-
-h1{
-  text-align: center;
-  padding-top: 15px;
-}
-
-h4{
-  text-align: center;
-}
-
-form{
-  width: 300px;
-  margin-left: 40px;
-}
-
-form label{
+.formContainer {
   display: flex;
-  margin-top: 20px;
-  font-size: 18px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
 }
 
-form input{
+h1 {
+  text-align: center;
+  margin: 13px 0;
+  font-size: 40px;
+}
+
+.formContainer form {
+  width: 70%;
+  max-width: 450px;
+  border: 1px solid #dfefef;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #fbf5f5;
+  box-shadow: 2px 12px 17px -7px #383838;
+  border-radius: 15px;
+}
+
+.uiForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 400px;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  padding: 5px;
-  border: none;
-  border: 1px solid gray;
-  border-radius: 6px;
+}
+
+.formField input {
+  border: 1px solid grey;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.formField input:focus {
   outline: none;
 }
 
-form button{
-  width: 320px;
-  height: 35px;
-  margin-top: 40px;
-  border: none;
-  background-color: #49c1a2;
-  border-radius: 6px;
-  color: white;
-  font-size: 18px;
-}
-
-.para1{
-  padding-top: 5px;
-  text-align: center;
-}
-
-.para2{
-  text-align: center;
-  color: white;
+.formField label {
   font-size: 15px;
-  margin-top: 15px;
+  font-weight: 600;
+  margin-bottom: 3px;
 }
 
-.para2 a{
-  color: #49c1a2;
+button {
+  background: #0563b4;
+  width: 100%;
+  margin-top: 30px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 30px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background-color: #0e528d;
+}
+
+.errorMsg {
+  color: red;
+  margin: 0;
+  align-self: flex-start;
+}
+
+.msgOk {
+  color: green;
+  margin-top: 15px;
 }
